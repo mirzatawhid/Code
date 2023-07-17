@@ -5,7 +5,7 @@ session_start();
 $user_id = $_SESSION['user'];
 
 if (!isset($user_id)) {
-   header("Location: login.php");
+   header("Location: ../login.php");
 };
 
 if (isset($_POST['update_profile'])) {

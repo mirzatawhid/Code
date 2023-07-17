@@ -45,9 +45,9 @@ require "connection.php";
                         <i class="uil uil-file-check"></i>
                         <span class="link-name">Pending Verification List</span>
                     </a></li>
-                    <li><a href="#">
+                    <li><a href="Pending_Solved_List/pending_solved_list.php">
                         <i class="uil uil-file-check-alt"></i>
-                        <span class="link-name">Pending Approved List</span>
+                        <span class="link-name">Pending Solved List</span>
                     </a></li>
                 <li><a href="#">
                         <i class="uil uil-paperclip"></i>
@@ -143,15 +143,15 @@ require "connection.php";
                 <div class="boxes">
                     <a href="complaint_submission.php">
                         <i class="uil uil-file-plus"></i>
-                        <span class="text">Complaint Submission</span>
+                        <span class="text">Complaint<br>Submission</span>
                     </a>
                     <a href="Complaint_Mapping/complaint_mapping.php">
                         <i class="uil uil-map-marker"></i>
-                        <span class="text">Complaint Mapping</span>
+                        <span class="text">Complaint<br>Mapping</span>
                     </a>
                     <a href="#">
                         <i class="uil uil-users-alt"></i>
-                        <span class="text">Solution Forum</span>
+                        <span class="text">Solution<br>Forum</span>
                     </a>
                 </div>
             </div>

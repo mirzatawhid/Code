@@ -120,10 +120,7 @@ nav.close li a .link-name{
 .nav-links li a:hover .link-name{
     color: var(--primary-color);
 }
-body.dark .nav-links li a:hover i,
-body.dark .nav-links li a:hover .link-name{
-    color: var(--text-color);
-}
+
 .menu-items .logout-mode{
     padding-top: 10px;
     border-top: 1px solid var(--border-color);
@@ -243,6 +240,7 @@ nav.close ~ .dashboard{
     align-items: center;
     border-radius: 12px;
     width: calc(100% / 3 - 30px);
+    height: 33%;
     padding: 35px 20px;
     background-color: var(--box1-color);
     transition: var(--tran-05);

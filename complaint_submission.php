@@ -134,7 +134,7 @@ require "connection.php";
             <i class="uil uil-estate"></i>
             <span class="link-name">Dahsboard</span>
           </a></li>
-        <li><a href="user_profile.php">
+        <li><a href="User_Profile/user_profile.php">
             <i class="uil uil-user"></i>
             <span class="link-name">User Profile</span>
           </a></li>
@@ -142,9 +142,9 @@ require "connection.php";
             <i class="uil uil-file-check"></i>
             <span class="link-name">Pending Verification List</span>
           </a></li>
-        <li><a href="#">
+        <li><a href="Pending_Solved_List/pending_solved_list.php">
             <i class="uil uil-file-check-alt"></i>
-            <span class="link-name">Pending Approved List</span>
+            <span class="link-name">Pending Solved List</span>
           </a></li>
         <li><a href="#">
             <i class="uil uil-paperclip"></i>

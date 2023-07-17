@@ -91,6 +91,7 @@
             if ($password == $user["password"]) {
               session_start();
               $_SESSION["user"] = $user["user_id"];
+              require "helper/cycle_checker.php";
               header("Location: dashboard.php");
               die();
             } else {
