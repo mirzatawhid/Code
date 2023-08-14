@@ -218,7 +218,7 @@ require "connection.php";
           if (move_uploaded_file($file['tmp_name'], $destination)) {
             // Insert the file path into the database
             require 'connection.php';
-            $sql = "INSERT INTO complaint_list(user_id,prb_title,category,sub_category,prb_address,prb_state,prb_district,prb_area,prb_datetime,prb_desc,prb_medianame,prb_mediatype,prb_mediapath) VALUES (?, ?, ?, ?, ?, ?, ?, ?,NOW(), ?, ?, ?, ?)";
+            $sql = "INSERT INTO complaint_list(user_id,prb_title,category,sub_category,prb_address,prb_state,prb_district,prb_area,submit_date,prb_desc,prb_medianame,prb_mediatype,prb_mediapath) VALUES (?, ?, ?, ?, ?, ?, ?, ?,NOW(), ?, ?, ?, ?)";
             if ($stmt = mysqli_prepare($conn, $sql)) {
               mysqli_stmt_bind_param($stmt, "isiisiiissss", $userid, $title, $category, $sub_category, $address, $state, $district, $area, $comment, $name, $type, $destination);
               if (mysqli_stmt_execute($stmt)) {

@@ -41,7 +41,7 @@ require "connection.php";
                         <i class="uil uil-user"></i>
                         <span class="link-name">User Profile</span>
                     </a></li>
-                    <li><a href="Complaint_Media/com_list.php">
+                    <li><a href="pending_verification_list/pending_verified_list.php">
                         <i class="uil uil-file-check"></i>
                         <span class="link-name">Pending Verification List</span>
                     </a></li>
@@ -149,7 +149,7 @@ require "connection.php";
                         <i class="uil uil-map-marker"></i>
                         <span class="text">Complaint<br>Mapping</span>
                     </a>
-                    <a href="#">
+                    <a href="Solution_Forum/forum_main.php">
                         <i class="uil uil-users-alt"></i>
                         <span class="text">Solution<br>Forum</span>
                     </a>

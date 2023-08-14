@@ -9,50 +9,22 @@ if (!isset($user_id)) {
 };
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pending Solved List</title>
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Verification List</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="pending_solved_list.css">
+  <link rel="stylesheet" href="../Pending_Solved_List/pending_solved_list.css">
   <link rel="stylesheet" href="../side_bar.css">
   <!----===== Iconscout CSS ===== -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
-
-<!-- JS code for submit vote and remove row -->
-<script>
-          function castVote(vote) {
-            var tableRow = $(event.target).closest('tr');
-            var id = tableRow.find('input[type="hidden"]').val();
-
-            // Send the vote and id to the server using AJAX
-            $.ajax({
-              url: 'submit_vote.php',
-              type: 'POST',
-              data: {
-                vote: vote,
-                id: id
-              },
-              success: function(response) {
-                console.log(response); // Log the response from the server
-                tableRow.remove(); // Remove the table row from the DOM
-              },
-              error: function(xhr, status, error) {
-                console.log(error); // Log any errors
-              }
-            });
-          }
-        </script>
-
 <body>
-  <!-- side nav bar -->
+    <!-- side nav bar -->
   <nav>
     <div class="logo-name">
       <div class="logo-image">
@@ -70,11 +42,11 @@ if (!isset($user_id)) {
             <i class="uil uil-user"></i>
             <span class="link-name">User Profile</span>
           </a></li>
-        <li><a href="../pending_verification_list/pending_verified_list.php">
+        <li><a href="pending_verified_list.php">
             <i class="uil uil-file-check"></i>
             <span class="link-name">Pending Verification List</span>
           </a></li>
-        <li><a href="#">
+        <li><a href="../Pending_Solved_List/pending_solved_list.php">
             <i class="uil uil-file-check-alt"></i>
             <span class="link-name">Pending Solved List</span>
           </a></li>
@@ -107,13 +79,14 @@ if (!isset($user_id)) {
   </nav>
 
 
+
   <section class="space">
     <div class="top">
       <img src="../images/user.png" alt="">
     </div>
 
     <div class="list_content">
-      <h1 class="list_title">Pending Solved List</h1>
+      <h1 class="list_title">Pending Verification List</h1>
 
       <div class="table-responsive table_container">
         <table class="table table-bordered table-hover table-fixed">
@@ -136,14 +109,14 @@ if (!isset($user_id)) {
             $user_area = $user_row['area'];
             $user_state = $user_row['state'];
             $user_district = $user_row['district'];
-            $all_prb_sql = "SELECT * FROM complaint_list WHERE is_valid = 1 AND is_solved = 0 AND prb_area = '$user_area' AND prb_state = '$user_state' AND prb_district = '$user_district' AND next_show_date > NOW()";
+            $all_prb_sql = "SELECT * FROM complaint_list WHERE user_id = '$user_id' AND is_valid = 0 AND is_solved = 0 AND prb_area = '$user_area' AND prb_state = '$user_state' AND prb_district = '$user_district' AND next_show_date > NOW()";
             $prb_result = mysqli_query($conn, $all_prb_sql);
             if (mysqli_num_rows($prb_result) > 0) {
               $serial = 1;
               while ($prb_row = mysqli_fetch_assoc($prb_result)) {
                 $prb_id = $prb_row['prb_id'];
-                $next_sh_date = $prb_row['next_show_date'];
-                $vote_check_sql = "SELECT * FROM solve_vote WHERE prb_id='$prb_id' AND user_id='$user_id' AND vote_date BETWEEN date_sub('$next_sh_date',interval 30 day) AND NOW()";
+                $submit_date = $prb_row['submit_date'];
+                $vote_check_sql = "SELECT * FROM verify_vote WHERE prb_id='$prb_id' AND user_id='$user_id' AND vote_date BETWEEN '$submit_date' AND date_add('$submit_date',interval 30 day)";
                 $vote_result = mysqli_query($conn, $vote_check_sql);
                 if (mysqli_num_rows($vote_result) <= 0) {
 
@@ -177,7 +150,7 @@ if (!isset($user_id)) {
                   echo "<td>$sub_categoryName</td>";
                   echo "<td>$prb_address</td>";
                   echo "<td>";
-                  echo '<form method="post" action="solve_vote.php">
+                  echo '<form method="post" action="verify_vote.php">
                   <input type="hidden" name="user_id" value= '.$user_id;
                   echo '>
                   <input type="hidden" name="prb_id" value='.$prb_id;
@@ -205,7 +178,6 @@ if (!isset($user_id)) {
     </div>
 
   </section>
-  
-</body>
 
+</body>
 </html>
