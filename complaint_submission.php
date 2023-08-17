@@ -298,7 +298,7 @@ require "connection.php";
             <input type="file" name="media" accept="image/*,video/*">
           </div>
           <div class="button">
-            <input type="submit" value="Sign Up" name="submit" />
+            <input type="submit" value="Submit" name="submit" />
           </div>
         </form>
 
