@@ -22,6 +22,7 @@ if (!isset($user_id)) {
    <!-- custom css file link  -->
    <link rel="stylesheet" href="user.css">
    <link rel="stylesheet" href="../side_bar.css">
+   <link rel="stylesheet" href="../corner.css">
    <!----===== Iconscout CSS ===== -->
    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
@@ -47,7 +48,15 @@ if (!isset($user_id)) {
                   <i class="uil uil-user"></i>
                   <span class="link-name">User Profile</span>
                </a></li>
-            <li><a href="complaint_submission.php">
+            <li><a href="../pending_verification_list/pending_verified_list.php">
+                  <i class="uil uil-file-check"></i>
+                  <span class="link-name">Pending Verification List</span>
+               </a></li>
+            <li><a href="../Pending_Solved_List/pending_solved_list.php">
+                  <i class="uil uil-file-check-alt"></i>
+                  <span class="link-name">Pending Solved List</span>
+               </a></li>
+            <li><a href="#">
                   <i class="uil uil-paperclip"></i>
                   <span class="link-name">Submission List</span>
                </a></li>
@@ -75,21 +84,61 @@ if (!isset($user_id)) {
       </div>
    </nav>
 
+   <?php
+   $select = mysqli_query($conn, "SELECT * FROM `user_details` WHERE user_id = '$user_id'") or die('query failed');
+   if (mysqli_num_rows($select) > 0) {
+      $fetch = mysqli_fetch_assoc($select);
+   }
+   if ($fetch['user_medianame'] == '') {
+      $user_dp = "../User_DP/user.png";
+   } else {
+      $user_dp = "../User_DP/" . $fetch['user_medianame'];
+   }
 
+   ?>
 
    <section class="space">
       <div class="top">
-         <img src="images/user.png" alt="">
+         <img src="<?php echo $user_dp; ?>" alt="" onclick="toggleMenu()">
+
+         <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+               <div class="user-info">
+                  <img src="<?php echo $user_dp; ?>">
+                  <h2><?php echo $fetch['full_name']; ?></h2>
+               </div>
+               <hr>
+
+               <a href="update_profile.php" class="sub-menu-link">
+                  <i class="uil uil-user"></i>
+                  <h5>Edit Profile</h5>
+                  <span>></span>
+               </a>
+
+               <a href="../logout.php" class="sub-menu-link">
+                  <i class="uil uil-signout"></i>
+                  <h5>Log Out</h5>
+                  <span>></span>
+               </a>
+            </div>
+         </div>
       </div>
+
+
+      <script>
+         let subMenu = document.getElementById("subMenu");
+
+         function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+         }
+      </script>
+
 
       <div class="container">
          <h1 class="profile_title">User Profile</h1>
          <div class="profile">
             <?php
-            $select = mysqli_query($conn, "SELECT * FROM `user_details` WHERE user_id = '$user_id'") or die('query failed');
-            if (mysqli_num_rows($select) > 0) {
-               $fetch = mysqli_fetch_assoc($select);
-            }
+
             if ($fetch['user_medianame'] == '') {
                echo '<img src="../images/user.png">';
             } else {
@@ -105,9 +154,9 @@ if (!isset($user_id)) {
             <p class="row"><span class="attr">Address: </span><?php echo $fetch['address']; ?></p>
          </div>
          <div class="change">
-                  <a class="button" href="update_profile.php">Update Profile</a>       
-                  <a class="button" href="update_password.php">Change Password</a>
-            </div>
+            <a class="button" href="update_profile.php">Update Profile</a>
+            <a class="button" href="update_password.php">Change Password</a>
+         </div>
       </div>
    </section>
 

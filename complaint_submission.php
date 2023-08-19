@@ -15,12 +15,14 @@ require "connection.php";
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Complaint Submission</title>
+  
   <link rel="stylesheet" href="complaint_submission.css">
 
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
   <link rel="stylesheet" href="side_bar.css">
+  <link rel="stylesheet" href="corner.css">
 
 
   <!-- Country_city_state dropdown code -->
@@ -138,7 +140,7 @@ require "connection.php";
             <i class="uil uil-user"></i>
             <span class="link-name">User Profile</span>
           </a></li>
-        <li><a href="#">
+        <li><a href="pending_verification_list/pending_verified_list.php">
             <i class="uil uil-file-check"></i>
             <span class="link-name">Pending Verification List</span>
           </a></li>
@@ -174,11 +176,54 @@ require "connection.php";
     </div>
   </nav>
 
+  <?php
+
+  $select = mysqli_query($conn, "SELECT * FROM `user_details` WHERE user_id = '$user_id'") or die('query failed');
+  if (mysqli_num_rows($select) > 0) {
+    $fetch = mysqli_fetch_assoc($select);
+  }
+  if ($fetch['user_medianame'] == '') {
+    $user_dp = "User_DP/user.png";
+  } else {
+    $user_dp = "User_DP/" . $fetch['user_medianame'];
+  }
+
+  ?>
+
   <section class="submission">
     <div class="top">
+      <img src="<?php echo $user_dp; ?>" alt="" onclick="toggleMenu()">
 
-      <img src="images/user.png" alt="">
+      <div class="sub-menu-wrap" id="subMenu">
+        <div class="sub-menu">
+          <div class="user-info">
+            <img src="<?php echo $user_dp; ?>">
+            <h2><?php echo $fetch['full_name']; ?></h2>
+          </div>
+          <hr>
+
+          <a href="User_Profile/update_profile.php" class="sub-menu-link">
+            <i class="uil uil-user"></i>
+            <h5>Edit Profile</h5>
+            <span>></span>
+          </a>
+
+          <a href="logout.php" class="sub-menu-link">
+            <i class="uil uil-signout"></i>
+            <h5>Log Out</h5>
+            <span>></span>
+          </a>
+        </div>
+      </div>
     </div>
+
+    <script>
+      let subMenu = document.getElementById("subMenu");
+
+      function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+      }
+    </script>
 
 
     <div class="form_content">
@@ -309,39 +354,51 @@ require "connection.php";
 
 </body>
 
-<script type = "text/javascript">
-$(document).ready(function(){
-	
-	function load_unseen_notification(view = ''){
-		$.ajax({
-			url:"fetch.php",
-			method:"POST",
-			data:{view:view},
-			dataType:"json",
-			success:function(data){
-			$('.dropdown-menu').html(data.notification);
-			if(data.unseen_notification > 0){
-			$('.count').html(data.unseen_notification);	}}});} 
-	load_unseen_notification(); 
-	$('#add_form').on('submit', function(event){
-		event.preventDefault();
-		if($('#title').val() != ''){
-		var form_data = $(this).serialize();
-		$.ajax({
-			url:"complaint_submission.php",
-			method:"POST",
-			data:form_data,
-			success:function(data){
-			$('#add_form')[0].reset();
-			load_unseen_notification();	}});}
-		else{ alert("Enter Data First");}}); 
-	$(document).on('click', '.dropdown-toggle', function(){
-	$('.count').html('');
-	load_unseen_notification('yes');}); 
-	setInterval(function(){ 
-		load_unseen_notification();; 
-	}, 5000);
-});
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    function load_unseen_notification(view = '') {
+      $.ajax({
+        url: "fetch.php",
+        method: "POST",
+        data: {
+          view: view
+        },
+        dataType: "json",
+        success: function(data) {
+          $('.dropdown-menu').html(data.notification);
+          if (data.unseen_notification > 0) {
+            $('.count').html(data.unseen_notification);
+          }
+        }
+      });
+    }
+    load_unseen_notification();
+    $('#add_form').on('submit', function(event) {
+      event.preventDefault();
+      if ($('#title').val() != '') {
+        var form_data = $(this).serialize();
+        $.ajax({
+          url: "complaint_submission.php",
+          method: "POST",
+          data: form_data,
+          success: function(data) {
+            $('#add_form')[0].reset();
+            load_unseen_notification();
+          }
+        });
+      } else {
+        alert("Enter Data First");
+      }
+    });
+    $(document).on('click', '.dropdown-toggle', function() {
+      $('.count').html('');
+      load_unseen_notification('yes');
+    });
+    setInterval(function() {
+      load_unseen_notification();;
+    }, 5000);
+  });
 </script>
 
 

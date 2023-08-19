@@ -11,20 +11,25 @@ if (!isset($user_id)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pending Verification List</title>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Verification List</title>
+  
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
   <link rel="stylesheet" href="../Pending_Solved_List/pending_solved_list.css">
   <link rel="stylesheet" href="../side_bar.css">
+  <link rel="stylesheet" href="../corner.css">
+  
   <!----===== Iconscout CSS ===== -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
+
 <body>
-    <!-- side nav bar -->
+  <!-- side nav bar -->
   <nav>
     <div class="logo-name">
       <div class="logo-image">
@@ -79,11 +84,55 @@ if (!isset($user_id)) {
   </nav>
 
 
+  <?php
+  $select = mysqli_query($conn, "SELECT * FROM `user_details` WHERE user_id = '$user_id'") or die('query failed');
+  if (mysqli_num_rows($select) > 0) {
+    $fetch = mysqli_fetch_assoc($select);
+  }
+  if ($fetch['user_medianame'] == '') {
+    $user_dp = "../User_DP/user.png";
+  } else {
+    $user_dp = "../User_DP/" . $fetch['user_medianame'];
+  }
+
+  ?>
+
+
 
   <section class="space">
     <div class="top">
-      <img src="../images/user.png" alt="">
+      <img src="<?php echo $user_dp; ?>" alt="" onclick="toggleMenu()">
+
+      <div class="sub-menu-wrap" id="subMenu">
+        <div class="sub-menu">
+          <div class="user-info">
+            <img src="<?php echo $user_dp; ?>">
+            <h2><?php echo $fetch['full_name']; ?></h2>
+          </div>
+          <hr>
+
+          <a href="update_profile.php" class="sub-menu-link">
+            <i class="uil uil-user"></i>
+            <h5>Edit Profile</h5>
+            <span>></span>
+          </a>
+
+          <a href="../logout.php" class="sub-menu-link">
+            <i class="uil uil-signout"></i>
+            <h5>Log Out</h5>
+            <span>></span>
+          </a>
+        </div>
+      </div>
     </div>
+
+    <script>
+      let subMenu = document.getElementById("subMenu");
+
+      function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+      }
+    </script>
 
     <div class="list_content">
       <h1 class="list_title">Pending Verification List</h1>
@@ -151,9 +200,9 @@ if (!isset($user_id)) {
                   echo "<td>$prb_address</td>";
                   echo "<td>";
                   echo '<form method="post" action="verify_vote.php">
-                  <input type="hidden" name="user_id" value= '.$user_id;
+                  <input type="hidden" name="user_id" value= ' . $user_id;
                   echo '>
-                  <input type="hidden" name="prb_id" value='.$prb_id;
+                  <input type="hidden" name="prb_id" value=' . $prb_id;
                   echo '>
                   <button type="submit" class="btn btn-success" name="vote" value="1"><i class="uil uil-check icon_action_btn"></i></button>
                   <button type="submit" class="btn btn-danger" name="vote" value="0"><i class="uil uil-times icon_action_btn"></i></button>
@@ -171,7 +220,7 @@ if (!isset($user_id)) {
         </table>
 
 
-        
+
 
 
       </div>
@@ -180,4 +229,5 @@ if (!isset($user_id)) {
   </section>
 
 </body>
+
 </html>

@@ -42,7 +42,7 @@ button:hover{
 header{
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 50;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -191,29 +191,129 @@ h1{
 /**FAQ SECTION**/
 
 .faq_section{
-    padding: 5% 8% 0% 8%;
+    padding: 5% 20% 0% 20%;
 }
 
 .faq_container{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+    gap: 20px;
     padding: 2% 5% 5% 5%;
 }
 
 .faq_box{
-    width: 60%;
     background-color: white;
-    display: flex;
-    justify-content: baseline;
-    align-items: center;
+    position: relative;
     padding: 1%;
     margin: 1%;
-    border: 0;
-    border-radius: 15px;
+    border-radius: 5px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.267);
-    
+    overflow: hidden;
+}
+
+.faq_container .faq_box input{
+    appearance: none;
+}
+
+.faq_container .faq_box label{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq_container .faq_box label::after{
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 2em;
+    color: #333;
+    transition: transform 1s;
+}
+
+.faq_container .faq_box:hover label::after{
+    color: black;
+}
+
+.faq_container .faq_box input:checked ~ label::after{
+    transform: rotate(135deg);
+    color: white;
+}
+
+.faq_container .faq_box label h2{
+    width: 40px;
+    height: 40px;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.25em;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.faq_container .faq_box input:checked ~ label h2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(255,255,255,0.2);
+    font-size: 8em;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.faq_container .faq_box:nth-child(1) label h2{
+    background: linear-gradient(135deg,#70f570,#49c628);
+}
+
+.faq_container .faq_box:nth-child(2) label h2{
+    background: linear-gradient(135deg,#ff96f9,#c32bac);
+}
+
+.faq_container .faq_box:nth-child(3) label h2{
+    background: linear-gradient(135deg,#3c8ce7,#00eaff);
+}
+
+.faq_container .faq_box:nth-child(4) label h2{
+    background: linear-gradient(135deg,#fd6e6a,#ffc600);
+}
+
+.faq_container .faq_box label h3{
+    position: relative;
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+}
+
+.faq_container .faq_box input:checked ~ label h3{
+    background: white;
+    padding: 2px 10px;
+    color: #333;
+    border-radius: 2px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.faq_container .faq_box .content{
+    max-height: 0;
+    transition: 1s;
+    overflow: hidden;
+}
+
+.faq_container .faq_box input:checked ~ .content{
+    max-height: 100vh;
+}
+
+.faq_container .faq_box .content p{
+    position: relative;
+    padding: 10px 0;
+    color: #333;
+    z-index: 10;
+}
+
+.faq_container .faq_box input:checked ~ .content p{
+    color: white;
 }
 
 .ques{

@@ -14,6 +14,8 @@ require "../connection.php";
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  
+
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -27,6 +29,7 @@ require "../connection.php";
 
   <link rel="stylesheet" href="../side_bar.css">
   <link rel="stylesheet" href="complaint_mapping.css">
+  <link rel="stylesheet" href="../corner.css">
   <title>Complaint Mapping</title>
 </head>
 
@@ -35,62 +38,104 @@ require "../connection.php";
 
   <!-- side nav bar -->
   <nav>
-    <div class="logo-name">
-      <div class="logo-image">
-        <img src="../images/footer_logo.png" alt="logo">
+      <div class="logo-name">
+         <div class="logo-image">
+            <img src="../images/footer_logo.png" alt="logo">
+         </div>
       </div>
-    </div>
+      <div class="menu-items">
+         <ul class="nav-links">
+            <li><a href="../dashboard.php">
+                  <i class="uil uil-estate"></i>
+                  <span class="link-name">Dahsboard</span>
+               </a></li>
+            <li><a href="user_profile.php">
+                  <i class="uil uil-user"></i>
+                  <span class="link-name">User Profile</span>
+               </a></li>
+            <li><a href="../pending_verification_list/pending_verified_list.php">
+                  <i class="uil uil-file-check"></i>
+                  <span class="link-name">Pending Verification List</span>
+               </a></li>
+            <li><a href="../Pending_Solved_List/pending_solved_list.php">
+                  <i class="uil uil-file-check-alt"></i>
+                  <span class="link-name">Pending Solved List</span>
+               </a></li>
+            <li><a href="#">
+                  <i class="uil uil-paperclip"></i>
+                  <span class="link-name">Submission List</span>
+               </a></li>
+            <li><a href="#">
+                  <i class="uil uil-check-circle"></i>
+                  <span class="link-name">Verification List</span>
+               </a></li>
+            <li><a href="#">
+                  <i class="uil uil-file-search-alt"></i>
+                  <span class="link-name">Reviewed List</span>
+               </a></li>
+            <li><a href="#">
+                  <i class="uil uil-share"></i>
+                  <span class="link-name">Share</span>
+               </a></li>
+         </ul>
 
-    <div class="menu-items">
-      <ul class="nav-links">
-        <li><a href="../dashboard.php">
-            <i class="uil uil-estate"></i>
-            <span class="link-name">Dahsboard</span>
-          </a></li>
-        <li><a href="../User_Profile/user_profile.php">
-            <i class="uil uil-user"></i>
-            <span class="link-name">User Profile</span>
-          </a></li>
-        <li><a href="#">
-            <i class="uil uil-file-check"></i>
-            <span class="link-name">Pending Verification List</span>
-          </a></li>
-        <li><a href="#">
-            <i class="uil uil-file-check-alt"></i>
-            <span class="link-name">Pending Approved List</span>
-          </a></li>
-        <li><a href="#">
-            <i class="uil uil-paperclip"></i>
-            <span class="link-name">Submission List</span>
-          </a></li>
-        <li><a href="#">
-            <i class="uil uil-check-circle"></i>
-            <span class="link-name">Verification List</span>
-          </a></li>
-        <li><a href="#">
-            <i class="uil uil-file-search-alt"></i>
-            <span class="link-name">Reviewed List</span>
-          </a></li>
-        <li><a href="#">
-            <i class="uil uil-share"></i>
-            <span class="link-name">Share</span>
-          </a></li>
-      </ul>
+         <ul class="logout-mode">
+            <li><a href="../logout.php">
+                  <i class="uil uil-signout"></i>
+                  <span class="link-name">Logout</span>
+               </a></li>
+            </li>
+         </ul>
+      </div>
+   </nav>
 
-      <ul class="logout-mode">
-        <li><a href="../logout.php">
-            <i class="uil uil-signout"></i>
-            <span class="link-name">Logout</span>
-          </a></li>
-        </li>
-      </ul>
-    </div>
-  </nav>
+   <?php
+   $select = mysqli_query($conn, "SELECT * FROM `user_details` WHERE user_id = '$user_id'") or die('query failed');
+   if (mysqli_num_rows($select) > 0) {
+      $fetch = mysqli_fetch_assoc($select);
+   }
+   if ($fetch['user_medianame'] == '') {
+      $user_dp = "../User_DP/user.png";
+   } else {
+      $user_dp = "../User_DP/" . $fetch['user_medianame'];
+   }
+
+   ?>
 
   <section class="mapping">
     <div class="top">
-      <img src="../images/user.png" alt="">
+         <img src="<?php echo $user_dp; ?>" alt="" onclick="toggleMenu()">
+
+         <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+               <div class="user-info">
+                  <img src="<?php echo $user_dp; ?>">
+                  <h2><?php echo $fetch['full_name']; ?></h2>
+               </div>
+               <hr>
+
+               <a href="update_profile.php" class="sub-menu-link">
+                  <i class="uil uil-user"></i>
+                  <h5>Edit Profile</h5>
+                  <span>></span>
+               </a>
+
+               <a href="../logout.php" class="sub-menu-link">
+                  <i class="uil uil-signout"></i>
+                  <h5>Log Out</h5>
+                  <span>></span>
+               </a>
+            </div>
+         </div>
     </div>
+
+    <script>
+         let subMenu = document.getElementById("subMenu");
+
+         function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+         }
+      </script>
 
     <div class="map_content">
       <div id='map' style='width: 100%; height: 100%;'></div>

@@ -74,13 +74,13 @@ body {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.user-info {
+.user_info {
     display: flex;
     align-items: center;
 }
 
 
-.user-info img {
+.user_info img{
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -99,7 +99,7 @@ body {
 }
 
 
-.user-info span {
+.user_info span {
     font-weight: bold;
     vertical-align: middle;
 }

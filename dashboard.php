@@ -14,6 +14,7 @@ require "connection.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="images/icon.png">
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="dashboard.css">
@@ -77,10 +78,55 @@ require "connection.php";
         </div>
     </nav>
 
+    <?php
+    $select = mysqli_query($conn, "SELECT * FROM `user_details` WHERE user_id = '$user_id'") or die('query failed');
+            if (mysqli_num_rows($select) > 0) {
+               $fetch = mysqli_fetch_assoc($select);
+            }
+            if ($fetch['user_medianame'] == '') {
+                $user_dp = "User_DP/user.png";
+             } else {
+                $user_dp = "User_DP/".$fetch['user_medianame'];
+             }
+    
+    ?>
+
     <section class="dashboard">
         <div class="top">
-            <img src="images/user.png" alt="">
+            <img src="<?php echo $user_dp; ?>" alt="" onclick="toggleMenu()">
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="<?php echo $user_dp; ?>">
+                        <h2><?php echo $fetch['full_name']; ?></h2>
+                    </div>
+                    <hr>
+
+                    <a href="User_Profile/update_profile.php" class="sub-menu-link">
+                    <i class="uil uil-user"></i>
+                    <h5>Edit Profile</h5>
+                    <span>></span>
+                    </a>
+
+                    <a href="logout.php" class="sub-menu-link">
+                    <i class="uil uil-signout"></i>
+                    <h5>Log Out</h5>
+                    <span>></span>
+                    </a>
+                </div>
+            </div>
+
         </div>
+
+
+    <script>
+        let subMenu =document.getElementById("subMenu");
+        function toggleMenu(){
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
+
 
         <div class="dash-content">
             <div class="overview">

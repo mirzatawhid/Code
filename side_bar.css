@@ -169,3 +169,7 @@ body.dark .nav-links li a:hover .link-name{
     width: 40px;
     border-radius: 50%;
 }
+
+.top:hover img{
+    cursor: pointer;
+}
