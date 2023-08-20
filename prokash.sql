@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2023 at 09:32 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Generation Time: Aug 20, 2023 at 08:32 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -167,7 +167,7 @@ CREATE TABLE `complaint_list` (
   `submit_date` datetime NOT NULL DEFAULT current_timestamp(),
   `prb_desc` varchar(500) NOT NULL,
   `approved_date` datetime DEFAULT NULL,
-  `next_show_date` datetime DEFAULT NULL,
+  `next_show_date` datetime DEFAULT '2000-09-19 21:38:19',
   `solved_date` datetime DEFAULT NULL,
   `is_valid` tinyint(1) NOT NULL DEFAULT 0,
   `is_solved` tinyint(1) NOT NULL DEFAULT 0,
@@ -181,10 +181,13 @@ CREATE TABLE `complaint_list` (
 --
 
 INSERT INTO `complaint_list` (`prb_id`, `user_id`, `prb_title`, `category`, `sub_category`, `prb_address`, `prb_state`, `prb_district`, `prb_area`, `submit_date`, `prb_desc`, `approved_date`, `next_show_date`, `solved_date`, `is_valid`, `is_solved`, `prb_medianame`, `prb_mediatype`, `prb_mediapath`) VALUES
-(1, 2, 'Buriganga', 1, 3, 'Babubazar Bridge', 1, 1, 1, '2023-07-10 21:10:05', 'very very very heavy traffic jam.', '2023-06-22 21:07:55', '2023-07-22 21:07:55', NULL, 1, 0, 'sdgs', 'gsgsg', 'sggsgs'),
-(12, 7, 'Drainage', 1, 6, 'Imamgonj', 1, 1, 34, '2023-08-09 19:33:10', 'drain issue', NULL, NULL, NULL, 0, 0, 'Screenshot (42).png', 'image/png', 'Complaint_Media/64d39596d06a3_Screenshot (42).png'),
-(13, 15, 'Broken Chair', 2, 12, 'Jagannath University', 1, 1, 25, '2023-08-20 13:13:12', 'There are some broken chairs in the VC room in the Dept of CSE at Jagannath University.', NULL, NULL, NULL, 0, 0, 'IMG_20230820_130654.jpg', 'image/jpeg', 'Complaint_Media/64e1bd08353ce_IMG_20230820_130654.jpg'),
-(14, 15, 'Poor Wall Painting', 2, 10, 'Ahsan Manzil', 1, 1, 25, '2023-08-20 13:32:32', 'The wall Paint turns out to fade day by day. Authority should check the matter', NULL, NULL, NULL, 0, 0, 'ahsan.jpg', 'image/jpeg', 'Complaint_Media/64e1c19087ea4_ahsan.jpg');
+(1, 2, 'Buriganga', 1, 3, 'Babu bazar Bridge', 1, 1, 25, '2023-07-10 21:10:05', 'very very very heavy traffic jam.', '2023-06-22 21:07:55', '2023-07-22 21:07:55', NULL, 1, 0, 'sdgs', 'gsgsg', 'sggsgs'),
+(12, 7, 'Drainage', 1, 6, 'Chawkbazar', 1, 1, 34, '2023-08-09 19:33:10', 'drain issue', NULL, NULL, NULL, 0, 0, 'Screenshot (42).png', 'image/png', 'Complaint_Media/64d39596d06a3_Screenshot (42).png'),
+(13, 15, 'Broken Chair', 2, 12, 'Jagannath University', 1, 1, 25, '2023-08-20 13:13:12', 'There are some broken chairs in the VC room in the Dept of CSE at Jagannath University.', NULL, '2000-12-18 21:38:19', NULL, 0, 0, 'IMG_20230820_130654.jpg', 'image/jpeg', 'Complaint_Media/64e1bd08353ce_IMG_20230820_130654.jpg'),
+(14, 15, 'Poor Wall Painting', 2, 10, 'Ahsan Manzil', 1, 1, 25, '2023-08-20 13:32:32', 'The wall Paint turns out to fade day by day. Authority should check the matter', NULL, NULL, NULL, 0, 0, 'ahsan.jpg', 'image/jpeg', 'Complaint_Media/64e1c19087ea4_ahsan.jpg'),
+(15, 16, 'Traffic Jam', 1, 3, 'Jagannath University', 1, 1, 25, '2023-08-20 21:43:28', 'There are so many traffic jam in front of the main gate of the JNU Campus.', NULL, '2000-09-19 21:38:19', NULL, 0, 0, 'Jagannath-University-daily-sun.jpg', 'image/jpeg', 'Complaint_Media/64e234a0dceb5_Jagannath-University-daily-sun.jpg'),
+(16, 15, 'Poor Bus Vehicles', 1, 2, 'Bahadur Shah Park', 1, 1, 25, '2023-08-01 22:43:46', 'There is a bus station near the campus where there are many damaged buses which are not fit for transportation.', '2023-08-17 22:46:54', '2023-10-17 22:46:54', NULL, 1, 0, 'bus.jpg', 'image/jpeg', 'Complaint_Media/64e242c2eea19_bus.jpg'),
+(17, 15, 'Air Pollution', 5, 20, 'Dholaikhal', 1, 1, 25, '2023-08-03 22:46:10', 'As there are some bus station near the campus,air pollution level of that place is so high.', '2023-08-16 22:47:42', '2023-10-16 22:47:42', NULL, 1, 0, 'air.jpg', 'image/jpeg', 'Complaint_Media/64e2435248f18_air.jpg');
 
 -- --------------------------------------------------------
 
@@ -289,7 +292,8 @@ CREATE TABLE `forum_comment` (
 --
 
 INSERT INTO `forum_comment` (`comment_id`, `comment_date`, `prb_id`, `user_id`, `comment`, `likes`, `dislikes`) VALUES
-(1, '2023-08-20 11:05:22', 1, 2, 'hello', 1, 0);
+(1, '2023-08-20 11:05:22', 1, 2, 'hello', 1, 0),
+(2, '2023-08-20 23:12:36', 16, 16, 'We should implement traffic rules strictly', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -427,7 +431,8 @@ INSERT INTO `user_details` (`user_id`, `full_name`, `user_name`, `email`, `mobil
 (12, 'Cordie Mann', 'Mustafa_Marquardt54', 'your.email+fakedata59010@gmail.com', '139', 'G17FtUkigvrHN7K', '1561 Maurice Manors', '336', '1', '7', '1', NULL),
 (13, 'Cameron Kirlin', 'Vita_Dach', 'your.email+fakedata60200@gmail.com', '379', 'sdgDvSB2qlvpTfm', '5867 Narciso Track', '645', '1', '14', '1', NULL),
 (14, 'Keegan Lynch', 'Dixie_Will', 'your.email+fakedata11326@gmail.com', '61', 'T6_6KQsvuJZPJsQ', '3033 Waters Field', '21', '1', '25', '1', NULL),
-(15, 'Prokash', 'prokash', 'prokash@gmail.com', '01234567890', '12345678', 'Jagannath University', '987456321', '1', '25', '1', 'mapping.png');
+(15, 'Prokash', 'prokash', 'prokash@gmail.com', '01234567890', '12345678', 'Jagannath University', '987456321', '1', '25', '1', 'mapping.png'),
+(16, 'Abdul Karim', 'adbulkarim', 'abdul@gmail.com', '0165478l912', '12345678', 'Jagannath University', '87469213', '1', '25', '1', 'sagor.jpg');
 
 -- --------------------------------------------------------
 
@@ -455,6 +460,13 @@ CREATE TABLE `verify_vote` (
   `vote` tinyint(1) NOT NULL,
   `vote_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verify_vote`
+--
+
+INSERT INTO `verify_vote` (`verify_vote_id`, `user_id`, `prb_id`, `vote`, `vote_date`) VALUES
+(1, 16, 13, 1, '2023-08-20 22:02:50');
 
 --
 -- Indexes for dumped tables
@@ -585,13 +597,13 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `complaint_list`
 --
 ALTER TABLE `complaint_list`
-  MODIFY `prb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `prb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `forum_comment`
 --
 ALTER TABLE `forum_comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `solve_vote`
@@ -609,13 +621,13 @@ ALTER TABLE `sub_category`
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `verify_vote`
 --
 ALTER TABLE `verify_vote`
-  MODIFY `verify_vote_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `verify_vote_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

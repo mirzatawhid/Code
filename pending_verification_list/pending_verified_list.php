@@ -146,6 +146,7 @@ if (!isset($user_id)) {
               <th scope="col">Category</th>
               <th scope="col">Sub-Category</th>
               <th scope="col">Address</th>
+              <th scope="col">Media</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -158,7 +159,7 @@ if (!isset($user_id)) {
             $user_area = $user_row['area'];
             $user_state = $user_row['state'];
             $user_district = $user_row['district'];
-            $all_prb_sql = "SELECT * FROM complaint_list WHERE user_id = '$user_id' AND is_valid = 0 AND is_solved = 0 AND prb_area = '$user_area' AND prb_state = '$user_state' AND prb_district = '$user_district' AND next_show_date > NOW()";
+            $all_prb_sql = "SELECT * FROM complaint_list WHERE user_id != '$user_id' AND is_valid = 0 AND is_solved = 0 AND prb_area = '$user_area' AND prb_state = '$user_state' AND prb_district = '$user_district' AND submit_date BETWEEN submit_date AND date_add(submit_date,interval 30 day)";
             $prb_result = mysqli_query($conn, $all_prb_sql);
             if (mysqli_num_rows($prb_result) > 0) {
               $serial = 1;
@@ -174,6 +175,8 @@ if (!isset($user_id)) {
                   $prb_sub_category = $prb_row['sub_category'];
                   $prb_address = $prb_row['prb_address'];
                   $prb_desc = $prb_row['prb_desc'];
+                  $prb_media = $prb_row['prb_mediapath'];
+                  $prb_media= "../".$prb_media;
 
                   //Get category name
                   $category_result = mysqli_query($conn, "SELECT `name` FROM `category` WHERE id='$prb_category'");
@@ -198,6 +201,7 @@ if (!isset($user_id)) {
                   echo "<td>$categoryName</td>";
                   echo "<td>$sub_categoryName</td>";
                   echo "<td>$prb_address</td>";
+                  echo '<td><img src="'.$prb_media.'" alt="Verify_img" style="height: 100px; width: 100px;"></td>';
                   echo "<td>";
                   echo '<form method="post" action="verify_vote.php">
                   <input type="hidden" name="user_id" value= ' . $user_id;
@@ -219,7 +223,7 @@ if (!isset($user_id)) {
           </tbody>
         </table>
 
-
+            
 
 
 

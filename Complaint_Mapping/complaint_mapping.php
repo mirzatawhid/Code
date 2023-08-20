@@ -156,10 +156,9 @@ require "../connection.php";
 
   // Iterate through each row of the result set
   while ($row = mysqli_fetch_assoc($result)) {
-    echo $row['prb_title'];
-    echo $row['prb_address'];
+    
     $address = $row['prb_address'];
-    echo urlencode($address);
+    
     $geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?country=bd&access_token=pk.eyJ1IjoibWlyemF0YXdoaWQiLCJhIjoiY2xpeGs2OTRwMDdhdzNrcmtobHk4dmxyMCJ9.p9tJOzucCEKPa3y1JgFtzw';
     $geocodeResponse = file_get_contents($geocodeURL);
     $geocodeData = json_decode($geocodeResponse, true);

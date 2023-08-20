@@ -170,6 +170,7 @@ if (!isset($user_id)) {
               <th scope="col">Category</th>
               <th scope="col">Sub-Category</th>
               <th scope="col">Address</th>
+              <th scope="col">Media</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -198,6 +199,8 @@ if (!isset($user_id)) {
                   $prb_sub_category = $prb_row['sub_category'];
                   $prb_address = $prb_row['prb_address'];
                   $prb_desc = $prb_row['prb_desc'];
+                  $prb_media = $prb_row['prb_mediapath'];
+                  $prb_media= "../".$prb_media;
 
                   //Get category name
                   $category_result = mysqli_query($conn, "SELECT `name` FROM `category` WHERE id='$prb_category'");
@@ -222,6 +225,7 @@ if (!isset($user_id)) {
                   echo "<td>$categoryName</td>";
                   echo "<td>$sub_categoryName</td>";
                   echo "<td>$prb_address</td>";
+                  echo '<td><img src="'.$prb_media.'" alt="Verify_img" style="height: 100px; width: 100px;"></td>';
                   echo "<td>";
                   echo '<form method="post" action="solve_vote.php">
                   <input type="hidden" name="user_id" value= ' . $user_id;

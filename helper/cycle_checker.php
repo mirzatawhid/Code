@@ -1,7 +1,7 @@
 <?php
 
     // Update the time Cycle
-    $sql = "SELECT * FROM complaint_list WHERE is_valid = 1 AND is_solved = 0 AND next_show_date<= NOW()";
+    $sql = "SELECT * FROM complaint_list WHERE is_valid = 0 AND is_solved = 0 AND next_show_date <= NOW()";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0){
       while($row = mysqli_fetch_assoc($result)){

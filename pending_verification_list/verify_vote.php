@@ -27,10 +27,10 @@ if (isset($_POST['vote']) && isset($_POST['user_id'])) {
 
     $percentage = ($total_solve_vote/$total_vote)*100;
     if(($percentage>=70) && ($total_vote>=5)){
-        $update_sql = "UPDATE complaint_list SET is_valid = 1 AND approved_date = NOW() WHERE prb_id='$prb_id'";
+        $update_sql = "UPDATE complaint_list SET is_valid = 1 AND approved_date = NOW() AND next_show_date = date_add(NOW(),interval 30 day) WHERE prb_id='$prb_id'";
         mysqli_query($conn, $update_sql);
     }
 }
-header("Location: pending_solved_list.php");
+header("Location: pending_verified_list.php");
 exit;
 ?>
