@@ -1,4 +1,3 @@
-
 # Prokash
 <img src="https://github.com/mirzatawhid/Prokash/blob/master/images/footer_Logo.png" alt="Logo" width="200">
 
@@ -14,14 +13,9 @@ Mentor:
   Associate Professor of Computer Science and Engineering  
   Jagannath University
 ```
-
-
 ## Introduction
-
 This is a social or community based problem solving platform.This Platform helps communities turn information into action with an intuitive and accessible crowdsourcing and mapping tool. By collection, management and analysis of crowdsourced information, 'প্রকাশ' empowers everyone—individuals, community groups, organizations—to create meaningful change.
 We detect proble,submit it and get a solution through this platform.
-
-
 
 ## Features
 
@@ -31,6 +25,13 @@ We detect proble,submit it and get a solution through this platform.
 - Complaint Tracking
 - Complaint Cluster Mapping
 - Solution Forum
+
+# Architecture 
+## User Diagram 
+<img src="https://github.com/mirzatawhid/Prokash/blob/master/images/user%20diagram.jpg" alt="User Diagram "  >
+
+## Internal Diagram 
+<img src="https://github.com/mirzatawhid/Prokash/blob/master/images/internal%20diagram.jpg" alt="Internal Diagram "  >
 
 ## Run the app
 
