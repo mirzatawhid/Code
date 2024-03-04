@@ -148,10 +148,37 @@ if (!isset($user_id)) {
             <h2><?php echo $fetch['full_name']; ?></h2>
          </div>
          <div class="details">
+
+         <?php
+            $select = mysqli_query($conn, "SELECT * FROM `states` WHERE  id = $fetch[state]") or die('query failed');
+            if (mysqli_num_rows($select) > 0) {
+               $state = mysqli_fetch_assoc($select);
+               }
+         ?>
+
+         <?php
+            $select = mysqli_query($conn, "SELECT * FROM `districts` WHERE  id = $fetch[district]") or die('query failed');
+            if (mysqli_num_rows($select) > 0) {
+               $district = mysqli_fetch_assoc($select);
+               }
+         ?>
+
+         <?php
+            $select = mysqli_query($conn, "SELECT * FROM `cities` WHERE  id = $fetch[area]") or die('query failed');
+            if (mysqli_num_rows($select) > 0) {
+               $area = mysqli_fetch_assoc($select);
+               }
+         ?>
+
+
+
             <p class="row"><span class="attr">User Name: </span><?php echo $fetch['user_name']; ?></p>
             <p class="row"><span class="attr">Email: </span><?php echo $fetch['email']; ?></p>
             <p class="row"><span class="attr">Mobile No: </span><?php echo $fetch['mobile_no']; ?></p>
             <p class="row"><span class="attr">Address: </span><?php echo $fetch['address']; ?></p>
+            <p class="row"><span class="attr">Division: </span><?php echo $state['name']; ?></p>
+            <p class="row"><span class="attr">Districts: </span><?php echo $district['name']; ?></p>
+            <p class="row"><span class="attr">Area: </span><?php echo $area['name']; ?></p>
          </div>
          <div class="change">
             <a class="button" href="update_profile.php">Update Profile</a>
